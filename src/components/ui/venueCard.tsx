@@ -27,7 +27,7 @@ const VenueCard = ({
         className="w-full h-56 object-cover rounded-t-3xl"
       />
       <div className="p-6">
-        <h3 className="mb-2">{name}</h3>
+        <h5 className="mb-2 uppercase text-bold">{name}</h5>
         <div className="text-sm leading-6">
           <p className="mb-1">
             <span className="font-semibold">Location:</span> {location}

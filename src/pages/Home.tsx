@@ -34,8 +34,9 @@ const Home = () => {
           <img
             src="src/assets/hero-performer.png"
             alt="Artist performing"
-            className="w-[520px] h-[520px] object-cover rounded-xl"
+            className="w-full max-w-[520px] h-auto object-cover rounded-xl"
           />
+
           <img
             src="src/assets/scrollBar.svg"
             className="w-[550px] pt-8"
@@ -50,7 +51,7 @@ const Home = () => {
           EVERY CORNER DESERVES A SOUNDTRACK. <br />
           BECAUSE LIVE MUSIC MAKES EVERYTHING BETTER.
         </h2>
-        <h4 className="mt-8">Discover Venues</h4>
+        <h3 className="mt-8">Discover Venues:</h3>
       </section>
       {/* Venue Cards */}
       <section className="flex flex-wrap gap-4 px-2 pb-20">
@@ -61,8 +62,8 @@ const Home = () => {
           payRange="$300–$500 (plus bar tips)"
           date="Sat, Oct 21 @ 8–11pm"
           imageUrl="https://d2l4kn3pfhqw69.cloudfront.net/wp-content/uploads/2023/08/cafe23.jpg"
-          rating="5"
-          applicants={108}
+          rating={5}
+          audience={108}
         />
         <VenueCard
           name="The Rusty Keg"
@@ -71,8 +72,8 @@ const Home = () => {
           payRange="$300–$500 (plus bar tips)"
           date="Sat, Oct 21 @ 8–11pm"
           imageUrl="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/a0/63/35/goose-island-brewhouse.jpg?w=600&h=-1&s=1"
-          rating="5"
-          applicants={108}
+          rating={5}
+          audience={108}
         />
         <VenueCard
           name="The Blue Note Café"
@@ -81,8 +82,8 @@ const Home = () => {
           payRange="$300–$500 (plus bar tips)"
           date="Sat, Oct 21 @ 8–11pm"
           imageUrl="https://ressources.sat.qc.ca/uploads/2024/07/cafesat64-_web.jpg"
-          rating="5"
-          applicants={108}
+          rating={5}
+          audience={108}
         />
       </section>
     </div>

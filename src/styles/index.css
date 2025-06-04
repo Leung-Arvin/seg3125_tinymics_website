@@ -78,16 +78,6 @@ h3 {
   font-size: 23px;
   line-height: 40px;
 }
-h4 {
-  background-color: var(--white);
-  color: var(--black);
-  font-weight: bold;
-  font-size: 15px;
-  padding: 0.75rem 1.5rem;
-  border-radius: 15px;
-  text-transform: uppercase;
-  display: inline-block;
-}
 
 h5 {
   font-weight: 600;

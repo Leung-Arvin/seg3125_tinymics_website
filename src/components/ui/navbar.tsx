@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { UserCircle } from "lucide-react";
 
 const Navbar = () => {
   return (

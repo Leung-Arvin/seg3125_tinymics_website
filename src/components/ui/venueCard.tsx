@@ -5,8 +5,8 @@ interface VenueCardProps {
   payRange: string;
   date: string;
   imageUrl: string;
-  rating: string;
-  applicants: number;
+  rating: number;
+  audience: number;
 }
 
 const VenueCard = ({
@@ -17,7 +17,7 @@ const VenueCard = ({
   date,
   imageUrl,
   rating,
-  applicants,
+  audience,
 }: VenueCardProps) => {
   return (
     <div className="background-white rounded-3xl overflow-hidden shadow-xl max-w-md w-full black-text">
@@ -28,14 +28,14 @@ const VenueCard = ({
       />
       <div className="p-6">
         <h5 className="mb-2 uppercase text-bold">{name}</h5>
-        <div className="text-sm leading-6">
-          <p className="mb-1">
+        <div className="text-sm leading-6 flex flex-col gap-1">
+          <p>
             <span className="font-semibold">Location:</span> {location}
           </p>
-          <p className="mb-1">
+          <p>
             <span className="font-semibold">Genre:</span> {genre}
           </p>
-          <p className="mb-1">
+          <p>
             <span className="font-semibold">Pay Range:</span> {payRange}
           </p>
           <p>
@@ -45,11 +45,14 @@ const VenueCard = ({
 
         <div className="flex justify-between items-center mt-6">
           <div className="flex gap-6 text-sm text-gray-700">
-            <div className="flex items-center gap-1">
+            <div
+              className="flex items-center gap-1"
+              title="Expected audience size"
+            >
               <span className="text-lg">👥</span>
-              <span>{applicants}</span>
+              <span>{audience}</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" title="Average rating">
               <span className="text-lg">⭐</span>
               <span>{rating}/5</span>
             </div>

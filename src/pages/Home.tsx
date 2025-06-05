@@ -8,7 +8,7 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="flex flex-col-reverse sm:flex-row justify-between items-center px-10 py-20 gap-10">
+      <section className="flex flex-col-reverse md:flex-row justify-between items-center px-10 py-20 gap-10">
         <div className="max-w-xl justify-center">
           <h1 className="text-center">WHERE DREAMS FIND STAGES</h1>
           <h3 className="text-center pt-4">Gigs near you, booked in minutes</h3>

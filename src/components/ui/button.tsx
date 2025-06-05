@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -10,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-white border-black border-2 text-primary-foreground shadow-xs hover:bg-white/90",
+          "bg-white border-black border-2 text-black shadow-xs hover:bg-gray-200",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-blue-500 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -24,7 +25,7 @@ const buttonVariants = cva(
           "bg-primary border-white border-2 text-white"
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        default: "h-9 px-10 py-4 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
@@ -58,4 +59,26 @@ function Button({
   )
 }
 
-export { Button, buttonVariants }
+  export { Button, buttonVariants }
+
+// interface ButtonProps {
+//   label: string;
+//   onClick?: () => void;
+//   variant?: "primary" | "secondary";
+// }
+
+// const Button = ({ label, onClick, variant = "primary" }: ButtonProps) => {
+//   const base = "px-10 py-4 font-semibold rounded-md transition";
+//   const styles =
+//     variant === "primary"
+//       ? "bg-white text-black hover:bg-gray-200"
+//       : "bg-black text-white border border-white hover:bg-gray-800";
+
+//   return (
+//     <button onClick={onClick} className={`${base} ${styles}`}>
+//       {label}
+//     </button>
+//   );
+// };
+
+// export default Button;

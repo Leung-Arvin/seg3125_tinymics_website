@@ -103,7 +103,7 @@ export const List = ({
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
         </Label>
-      <div className="rounded-md border">
+      <div className="rounded-md bordr">
         <Table className=' border-2'>
           <TableHeader>
             <TableRow>

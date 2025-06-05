@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Button } from './components/ui/button'
-import EventForm from './pages/EventForm'
+// src/App.tsx
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import EventForm from "./pages/EventForm";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <EventForm/>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/event-form" element={<EventForm/>}/>
+    </Routes>
+  );
+};
 
-export default App
+export default App;

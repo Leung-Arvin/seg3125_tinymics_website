@@ -1,6 +1,6 @@
 import Navbar from "@/components/ui/navbar";
 import VenueCard from "@/components/ui/venueCard";
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const Home = () => {
   return (
@@ -8,16 +8,18 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row justify-between items-center px-10 py-20 gap-10">
+      <section className="flex flex-col-reverse md:flex-row justify-between items-center px-10 py-20 gap-10">
         <div className="max-w-xl justify-center">
           <h1 className="text-center">WHERE DREAMS FIND STAGES</h1>
           <h3 className="text-center pt-4">Gigs near you, booked in minutes</h3>
           <div className="flex justify-center pt-4 space-x-8">
             <img src="src/assets/play-arrow.svg" alt="" />
             <Button
-              label="Login"
+              variant="default"
               onClick={() => console.log("Login clicked")}
-            />
+            >
+              Login
+            </Button>
             <img
               src="src/assets/play-arrow.svg"
               alt=""
@@ -54,7 +56,7 @@ const Home = () => {
         <h3 className="mt-8">Discover Venues:</h3>
       </section>
       {/* Venue Cards */}
-      <section className="flex flex-wrap gap-4 px-2 pb-20">
+      <section className="flex flex-wrap justify-evenly px-2 pb-20">
         <VenueCard
           name="The Blue Note Café"
           location="123 Jazz Lane"

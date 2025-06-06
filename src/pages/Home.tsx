@@ -1,6 +1,6 @@
 import Navbar from "@/components/ui/navbar";
 import VenueCard from "@/components/ui/venueCard";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const Home = () => {
   return (
@@ -17,7 +17,9 @@ const Home = () => {
             <Button
               variant="default"
               onClick={() => console.log("Login clicked")}
-            >Login</Button>
+            >
+              Login
+            </Button>
             <img
               src="src/assets/play-arrow.svg"
               alt=""

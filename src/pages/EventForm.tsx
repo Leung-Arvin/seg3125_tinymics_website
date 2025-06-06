@@ -21,7 +21,7 @@ export default function EventForm() {
     perks: "",
     notes: "",
     genre: "",
-    date:"",
+    date: "",
   });
 
   const handleChange = (field: keyof typeof formData, value: string) => {
@@ -35,18 +35,21 @@ export default function EventForm() {
       ...formData,
       time,
       equipment,
-      date
+      date,
     };
 
-    saveEvent(completeFormData)
+    saveEvent(completeFormData);
 
     console.log("Form Data:", getEvents());
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center p-8 md:p-12 lg:p-16 w-full min-h-screen">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center p-8 md:p-12 lg:p-16 w-full min-h-screen"
+    >
       <div className="w-full max-w-xl space-y-6">
-        <h1 className="text-white font-bold text-4xl mb-8">Create an Event</h1>
+        <h2 className="text-white font-bold text-4xl mb-8">Create an Event</h2>
 
         <FormDateTimePicker
           label="Event Date & Time"
@@ -119,10 +122,15 @@ export default function EventForm() {
           label="Equipment List"
         />
 
-        <FormCheckbox label="I agree to TinyMics’ terms and service and Privacy Policy" required/>
-        
+        <FormCheckbox
+          label="I agree to TinyMics’ terms and service and Privacy Policy"
+          required
+        />
+
         <div className="flex flex-col sm:flex-row gap-4 pt-6">
-          <Button type="submit" className="w-full sm:w-auto flex-1">Create Event</Button>
+          <Button type="submit" className="w-full sm:w-auto flex-1">
+            Create Event
+          </Button>
           <Button variant="outline" className="w-full sm:w-auto flex-1">
             Cancel
           </Button>

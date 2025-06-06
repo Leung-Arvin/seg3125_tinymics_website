@@ -28,7 +28,7 @@ const Home = () => {
           </div>
 
           <p className="mt-2 text-sm underline cursor-pointer text-center pt-4">
-            Create an account
+            <a href="/create-account">Create an Account</a>
           </p>
         </div>
 
@@ -56,7 +56,7 @@ const Home = () => {
         <h3 className="mt-8">Discover Venues:</h3>
       </section>
       {/* Venue Cards */}
-      <section className="flex flex-wrap justify-evenly px-2 pb-20">
+      <section className="flex flex-wrap gap-4 px-2 pb-20">
         <VenueCard
           name="The Blue Note Café"
           location="123 Jazz Lane"

@@ -48,6 +48,9 @@ body {
 .black-text {
   color: var(--black);
 }
+.accent-text {
+  color: var(--accent);
+}
 .background-accent {
   background-color: var(--accent);
 }

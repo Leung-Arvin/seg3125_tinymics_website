@@ -22,7 +22,16 @@ export default function VenueRegistration() {
       return;
     }
 
-    console.log("Venue registration data:", formData);
+    const savedData = {
+      email: formData.email,
+      ownerName: formData.ownerName,
+      password: formData.password,
+    };
+
+    localStorage.setItem("venue-partial", JSON.stringify(savedData));
+    console.log("Saved to localStorage:", savedData);
+
+    window.location.href = "/register/venue-continued";
   };
 
   return (

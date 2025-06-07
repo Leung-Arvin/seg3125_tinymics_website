@@ -5,6 +5,7 @@ import EventForm from "./pages/EventForm";
 import CreateAccount from "./pages/CreateAccount";
 import VenueRegistration from "./pages/VenueRegistration";
 import ArtistRegistration from "./pages/ArtistRegistration";
+import VenueRegistration2 from "./pages/VenueRegistration2";
 
 const App = () => {
   return (
@@ -13,6 +14,10 @@ const App = () => {
       <Route path="/event-form" element={<EventForm />} />
       <Route path="/create-account" element={<CreateAccount />} />
       <Route path="/register/venue" element={<VenueRegistration />} />
+      <Route
+        path="/register/venue-continued"
+        element={<VenueRegistration2 />}
+      />
       <Route path="/register/artist" element={<ArtistRegistration />} />
     </Routes>
   );

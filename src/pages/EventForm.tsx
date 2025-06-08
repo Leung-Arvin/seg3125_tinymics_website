@@ -7,12 +7,14 @@ import { FormTextArea } from "@/components/form/FormTextArea";
 import { FormDateTimePicker } from "@/components/form/FormDateTimePicker";
 import { FormCheckbox } from "@/components/form/FormCheckbox";
 import { getEvents, saveEvent } from "@/lib/storage";
+import { FormTimePicker } from "@/components/form/FormTimePicker";
 
 const Genre = ["Acoustic", "Jazz", "DJs", "Rock", "Classical"];
 
 export default function EventForm() {
   const [equipment, setEquipment] = useState<row[]>([]);
   const [time, setTime] = useState("");
+  const [soundCheckTime, setSoundCheckTime] = useState("");
   const [date, setDate] = useState<Date>();
   const [formData, setFormData] = useState({
     payout: "",
@@ -94,6 +96,7 @@ export default function EventForm() {
             value={formData.setLength}
             onChange={(e) => handleChange("setLength", e.target.value)}
           />
+          <FormTimePicker required label="Sound Check Time" time={soundCheckTime} onTimeChange={setSoundCheckTime}/>
           <FormInput
             label="Perks"
             type="text"

@@ -4,7 +4,7 @@ import { Button } from "./button";
 
 export type Venue = {
     id: number;
-    name: string;
+    eventName: string;
     location: string;
     genre: string;
     payRange: string;
@@ -12,10 +12,10 @@ export type Venue = {
     payMax: number;
     type: string;
     date: string;
+    time: string;
     dateObj: Date;
     imageUrl: string;
-    rating: number;
-    audience: number;
+    seating: number;
     contact: string;
     additional_info: string;
     equipment: {
@@ -29,39 +29,40 @@ export type Venue = {
 }
 interface VenueCardProps {
   id: number;
-  name: string;
-  location: string;
-  genre: string;
-  payRange: string;
-  payMin: number;
-  payMax: number;
-  dateObj: Date;
-  date: string;
-  imageUrl: string;
-  rating: number;
-  audience: number;
-  contact: string;
-  additional_info: string;
-  equipment: {
-    id: number,
-    equipment: string,
-    quantity: string
-  }[],
-  set_length: string;
-  sound_check_time: string;
-  perks: string;
+    eventName?: string;
+    location: string;
+    genre: string;
+    payRange: string;
+    payMin: number;
+    payMax: number;
+    type: string;
+    date?: string;
+    time: string;
+    dateObj: Date;
+    imageUrl?: string;
+    seating: number;
+    contact: string;
+    additional_info: string;
+    equipment: {
+      id: number,
+      equipment: string,
+      quantity: string
+    }[],
+    set_length: string;
+    sound_check_time: string;
+    perks: string;
 }
 
 const VenueCard = ({
   id,
-  name,
-  location,
+  eventName,
   genre,
   payRange,
   date,
+  dateObj,
   imageUrl,
-  rating,
-  audience,
+  time,
+  seating,
   payMin,
   payMax,
   contact,
@@ -78,14 +79,13 @@ const VenueCard = ({
     
     localStorage.setItem('selectedVenue', JSON.stringify({
       id,
-      name,
+      eventName,
       location,
       genre,
       payRange,
       date,
       imageUrl,
-      rating,
-      audience,
+      seating,
       payMin,
       payMax,
       contact,
@@ -102,38 +102,43 @@ const VenueCard = ({
     <div className="background-white rounded-3xl overflow-hidden shadow-xl max-w-md w-full black-text">
       <img
         src={imageUrl}
-        alt={name}
         className="w-full h-56 object-cover rounded-t-3xl"
       />
-      <div className="p-6">
-        <h5 className="mb-2 uppercase text-bold">{name}</h5>
+      <div className="p-6 border border-gray-300">
+        <h5 className="mb-2 uppercase text-bold">{eventName}</h5>
         <div className="text-sm leading-6 flex flex-col gap-1">
-          <p>
-            <span className="font-semibold">Location:</span> {location}
-          </p>
+          
           <p>
             <span className="font-semibold">Genre:</span> {genre}
           </p>
           <p>
-            <span className="font-semibold">Pay Range:</span> {payRange}
+            <span className="font-semibold">Pay(CAD):</span> {payRange}
           </p>
           <p>
-            <span className="font-semibold">Date:</span> {date}
+            <span className="font-semibold">Date:</span>{" "}
+            { new Date(dateObj).toLocaleDateString("en-GB") +
+                ", " +
+               time
+             }
           </p>
+
+          {set_length && (
+            <p>
+              <span className="font-semibold">Set Length:</span> {set_length}
+            </p>
+          )}
+          {perks && (
+            <p>
+              <span className="font-semibold">Perks:</span> {perks}
+            </p>
+          )}
         </div>
 
         <div className="flex justify-between items-center mt-6">
           <div className="flex gap-6 text-sm text-gray-700">
-            <div
-              className="flex items-center gap-1"
-              title="Expected audience size"
-            >
+            <div className="flex items-center gap-1" title="Audience">
               <span className="text-lg">👥</span>
-              <span>{audience}</span>
-            </div>
-            <div className="flex items-center gap-1" title="Average rating">
-              <span className="text-lg">⭐</span>
-              <span>{rating}/5</span>
+              <span>{seating}</span>
             </div>
           </div>
 

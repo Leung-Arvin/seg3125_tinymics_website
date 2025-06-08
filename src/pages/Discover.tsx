@@ -13,8 +13,7 @@ import { useEffect, useState } from "react";
 
 const venueGenres = ["All", "Cafe", "Bar", "Club"];
 const sortByOptions = [
-  { value: "rating", label: "Best Rated" },
-  { value: "audience", label: "Largest Audience" },
+  { value: "seating", label: "Most Seating" },
   { value: "date", label: "Earliest Gig" },
   { value: "pay", label: "Best Paying" },
 ];
@@ -22,7 +21,7 @@ const sortByOptions = [
 export default function Discover() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectGenre] = useState("All");
-  const [sortBy, setSortBy] = useState("rating");
+  const [sortBy, setSortBy] = useState("seating");
   const [venues, setVenues] = useState<Venue[]>([]);
   
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function Discover() {
   const filteredVenues = venues
     .filter((venue) => {
       const matchesSearch =
-        venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        venue.eventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         venue.genre.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesType =
         selectedGenre === "All" || venue.type === selectedGenre;
@@ -41,10 +40,8 @@ export default function Discover() {
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case "rating":
-          return b.rating - a.rating;
-        case "audience":
-          return b.audience - a.audience;
+        case "seating":
+          return b.seating - a.seating;
         case "date":
           return new Date(a.dateObj).getTime() - new Date(b.dateObj).getTime();
         default:
@@ -98,15 +95,16 @@ export default function Discover() {
               <VenueCard
               id={venue.id}
               key={venue.id}
-              name={venue.name}
+              eventName={venue.eventName}
               location={venue.location}
               genre={venue.genre}
               payRange={venue.payRange}
               date={venue.date}
               dateObj={venue.dateObj}
+              type={venue.type}
+              time="3:00pm"
               imageUrl={venue.imageUrl}
-              rating={venue.rating}
-              audience={venue.audience}
+              seating={venue.seating}
               contact={venue.contact}
               additional_info={venue.additional_info}
               equipment={venue.equipment}

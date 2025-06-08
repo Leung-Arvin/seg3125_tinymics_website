@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import { Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -8,10 +8,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Trash2, Plus } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Label } from '@radix-ui/react-label';
+} from "@/components/ui/table";
+import { Trash2, Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Label } from "@radix-ui/react-label";
 
 interface ListProps {
   column1Header: string;
@@ -28,10 +28,10 @@ interface ListProps {
 }
 
 export type row = {
-  id: string,
-  col1: string,
-  col2: string
-}
+  id: any;
+  col1: string;
+  col2: string;
+};
 
 export const List = ({
   column1Header,
@@ -46,65 +46,69 @@ export const List = ({
   required = false,
   onDataChange,
 }: ListProps) => {
-    const [items, setItems] = useState<{id: string; col1: string; col2: string}[]>(initialData);
-    const [newItem, setNewItem] = useState({col1: '', col2: ''});
-    const [errors,setErrors] = useState({col1: false, col2: false});
+  const [items, setItems] =
+    useState<{ id: string; col1: string; col2: string }[]>(initialData);
+  const [newItem, setNewItem] = useState({ col1: "", col2: "" });
+  const [errors, setErrors] = useState({ col1: false, col2: false });
 
-    const handleAddItem = () => {
-      let hasError = false;
-      const newErrors = {col1: false, col2: false};
+  const handleAddItem = () => {
+    let hasError = false;
+    const newErrors = { col1: false, col2: false };
 
-      if (!newItem.col1.trim()) {
-        newErrors.col1 = true;
-        hasError = true;
-      }
-      
-      if (!newItem.col2.trim()) {
-        newErrors.col2 = true;
-        hasError = true;
-      }
-
-      setErrors(newErrors);
-
-      if (hasError) return;
-
-      const updatedItems = [...items, {...newItem, id: Math.random().toString(36)}];
-      setItems(updatedItems);
-      setNewItem({col1: '', col2:''});
-      setErrors({col1: false, col2: false});
-
-      if (onDataChange) onDataChange(updatedItems);
+    if (!newItem.col1.trim()) {
+      newErrors.col1 = true;
+      hasError = true;
     }
 
-    const handleRemoveItem = (id: string) => {
-      const updatedItems = items.filter(item => item.id !== id);
-      setItems(updatedItems);
-      if (onDataChange) onDataChange(updatedItems);
+    if (!newItem.col2.trim()) {
+      newErrors.col2 = true;
+      hasError = true;
     }
 
-    const handleInputChange = (field: 'col1' | 'col2', value: string) => {
-      setNewItem(prev => ({ ...prev, [field]: value }));
-      
-      if (errors[field]) {
-        setErrors(prev => ({ ...prev, [field]: false }));
-      }
-    };
+    setErrors(newErrors);
 
-    const handleKeyPress = (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleAddItem();
-      }
-    };
+    if (hasError) return;
 
-    return (
-      <div className={cn("space-y-2", containerClass)}>
-        <Label className="text-lg text-white mb-5">
+    const updatedItems = [
+      ...items,
+      { ...newItem, id: Math.random().toString(36) },
+    ];
+    setItems(updatedItems);
+    setNewItem({ col1: "", col2: "" });
+    setErrors({ col1: false, col2: false });
+
+    if (onDataChange) onDataChange(updatedItems);
+  };
+
+  const handleRemoveItem = (id: string) => {
+    const updatedItems = items.filter((item) => item.id !== id);
+    setItems(updatedItems);
+    if (onDataChange) onDataChange(updatedItems);
+  };
+
+  const handleInputChange = (field: "col1" | "col2", value: string) => {
+    setNewItem((prev) => ({ ...prev, [field]: value }));
+
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: false }));
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddItem();
+    }
+  };
+
+  return (
+    <div className={cn("space-y-2", containerClass)}>
+      <Label className="text-lg text-white mb-5">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
-        </Label>
+      </Label>
       <div className="rounded-md bordr">
-        <Table className=' border-2'>
+        <Table className=" border-2">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[45%]">{column1Header}</TableHead>
@@ -132,7 +136,10 @@ export const List = ({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} className="h-24 text-center text-muted-foreground">
+                <TableCell
+                  colSpan={3}
+                  className="h-24 text-center text-muted-foreground"
+                >
                   No {emptyItemName} yet.
                 </TableCell>
               </TableRow>
@@ -148,10 +155,10 @@ export const List = ({
           </label>
           <Input
             value={newItem.col1}
-            onChange={(e) => handleInputChange('col1', e.target.value)}
+            onChange={(e) => handleInputChange("col1", e.target.value)}
             placeholder={column1Placeholder}
             onKeyDown={handleKeyPress}
-            className={errors.col1 ? 'border-red-500' : ''}
+            className={errors.col1 ? "border-red-500" : ""}
           />
           {errors.col1 && (
             <p className="mt-1 text-xs text-red-500">This field is required</p>
@@ -163,10 +170,10 @@ export const List = ({
           </label>
           <Input
             value={newItem.col2}
-            onChange={(e) => handleInputChange('col2', e.target.value)}
+            onChange={(e) => handleInputChange("col2", e.target.value)}
             placeholder={column2Placeholder}
             onKeyDown={handleKeyPress}
-            className={errors.col2 ? 'border-red-500' : ''}
+            className={errors.col2 ? "border-red-500" : ""}
           />
           {errors.col2 && (
             <p className="mt-1 text-xs text-red-500">This field is required</p>
@@ -184,5 +191,5 @@ export const List = ({
         </div>
       </div>
     </div>
-    )
-}
+  );
+};

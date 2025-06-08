@@ -6,7 +6,7 @@ import { FormInput } from "@/components/form/FormInput";
 import { FormTextArea } from "@/components/form/FormTextArea";
 import { FormDateTimePicker } from "@/components/form/FormDateTimePicker";
 import { FormCheckbox } from "@/components/form/FormCheckbox";
-import { getEvents, saveEvent } from "@/lib/storage";
+import { getEvents, saveEvent, type EventData } from "@/lib/storage";
 import { useNavigate } from "react-router-dom";
 
 const Genre = ["Acoustic", "Jazz", "DJs", "Rock", "Classical"];
@@ -17,13 +17,19 @@ export default function EventForm() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState<Date>();
   const [formData, setFormData] = useState({
+    eventName: "",
+    location: "",
     payout: "",
+    payMin: "",
+    payMax: "",
     seating: "",
     setLength: "",
     perks: "",
     notes: "",
     genre: "",
-    date: "",
+    imageUrl: "",
+    contact: "",
+    soundCheck: "",
   });
 
   const handleChange = (field: keyof typeof formData, value: string) => {
@@ -32,22 +38,47 @@ export default function EventForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const venueId = localStorage.getItem("activeVenueId");
-    console.log(venueId, " has created this event");
-    if (!venueId) {
-      alert("No active venue. Please log in again.");
+
+    const activeVenueId = localStorage.getItem("activeVenueId");
+    if (!activeVenueId) {
+      alert("No active venue found. Please log in again.");
       return;
     }
-    const completeFormData = {
-      ...formData,
-      venueId,
-      time,
-      equipment,
+
+    if (!date || !time) {
+      alert("Please select both date and time.");
+      return;
+    }
+
+    const mappedEquipment = equipment.map((item) => ({
+      id: item.id,
+      equipment: item.col1,
+      quantity: item.col2,
+    }));
+
+    const newEvent: Omit<EventData, "id"> = {
+      venueId: activeVenueId,
+      eventName: formData.eventName,
+      location: formData.location,
+      genre: formData.genre,
+      payout: formData.payout,
+      payMin: Number(formData.payMin) || 0,
+      payMax: Number(formData.payMax) || 0,
       date,
+      time,
+      seating: Number(formData.seating) || 0,
+      setLength: formData.setLength,
+      perks: formData.perks,
+      notes: formData.notes,
+      equipment: mappedEquipment,
+      contact: formData.contact,
+      imageUrl: formData.imageUrl || "default.jpg",
+      sound_check_time: formData.soundCheck,
     };
 
-    saveEvent(completeFormData);
-    console.log("Form Data:", getEvents());
+    saveEvent(newEvent);
+
+    localStorage.removeItem("selectedVenue");
     navigate("/venue/profile");
   };
 
@@ -58,6 +89,22 @@ export default function EventForm() {
     >
       <div className="w-full max-w-xl space-y-6">
         <h2 className="text-white font-bold text-4xl mb-8">Create an Event</h2>
+
+        <FormInput
+          label="Event Name"
+          type="text"
+          required
+          value={formData.eventName}
+          onChange={(e) => handleChange("eventName", e.target.value)}
+        />
+
+        <FormInput
+          label="Location"
+          type="text"
+          required
+          value={formData.location}
+          onChange={(e) => handleChange("location", e.target.value)}
+        />
 
         <FormDateTimePicker
           label="Event Date & Time"
@@ -76,48 +123,86 @@ export default function EventForm() {
           onValueChange={(value) => handleChange("genre", value)}
         />
 
-        <div className="grid grid-cols-1 gap-6">
+        <FormInput
+          label="Payout"
+          type="text"
+          placeholder="e.g. 500"
+          required={true}
+          value={formData.payout}
+          onChange={(e) => handleChange("payout", e.target.value)}
+        />
+        <div className="grid grid-cols-2 gap-4">
           <FormInput
-            label="Payout"
+            label="Pay Min"
             type="number"
-            placeholder="e.g. 500"
-            required={true}
-            value={formData.payout}
-            onChange={(e) => handleChange("payout", e.target.value)}
+            value={formData.payMin}
+            onChange={(e) => handleChange("payMin", e.target.value)}
           />
           <FormInput
-            label="Seating Capacity"
+            label="Pay Max"
             type="number"
-            placeholder="e.g. 100"
-            required={true}
-            value={formData.seating}
-            onChange={(e) => handleChange("seating", e.target.value)}
-          />
-
-          <FormInput
-            label="Set Length"
-            type="text"
-            placeholder="e.g. 2 hours and 25 mins"
-            required={true}
-            value={formData.setLength}
-            onChange={(e) => handleChange("setLength", e.target.value)}
-          />
-          <FormInput
-            label="Perks"
-            type="text"
-            placeholder="e.g. Free food"
-            value={formData.perks}
-            onChange={(e) => handleChange("perks", e.target.value)}
+            value={formData.payMax}
+            onChange={(e) => handleChange("payMax", e.target.value)}
           />
         </div>
 
+        <FormInput
+          label="Seating Capacity"
+          type="number"
+          placeholder="e.g. 100"
+          required={true}
+          value={formData.seating}
+          onChange={(e) => handleChange("seating", e.target.value)}
+        />
+
+        <FormInput
+          label="Set Length"
+          type="text"
+          placeholder="e.g. 2 hours and 25 mins"
+          required={true}
+          value={formData.setLength}
+          onChange={(e) => handleChange("setLength", e.target.value)}
+        />
+
+        <FormInput
+          label="Sound Check Time"
+          type="text"
+          placeholder="e.g. 5:00 PM"
+          value={formData.soundCheck}
+          onChange={(e) => handleChange("soundCheck", e.target.value)}
+        />
+
+        <FormInput
+          label="Perks"
+          type="text"
+          placeholder="e.g. Free food"
+          value={formData.perks}
+          onChange={(e) => handleChange("perks", e.target.value)}
+        />
+
+        <FormInput
+          label="Contact Email"
+          type="email"
+          required
+          value={formData.contact}
+          onChange={(e) => handleChange("contact", e.target.value)}
+        />
+
+        <FormInput
+          label="Image URL (optional)"
+          type="text"
+          value={formData.imageUrl}
+          onChange={(e) => handleChange("imageUrl", e.target.value)}
+        />
+
         <FormTextArea
           label="Additional Artist Notes"
-          placeholder="e.g. - you can sell your own merch!"
+          placeholder="e.g. You can sell your own merch!"
           value={formData.notes}
           required={true}
           onChange={(e) => handleChange("notes", e.target.value)}
         />
+
         <List
           column1Header="Equipment"
           column2Header="Quantity"
@@ -139,7 +224,12 @@ export default function EventForm() {
           <Button type="submit" className="w-full sm:w-auto flex-1">
             Create Event
           </Button>
-          <Button variant="outline" className="w-full sm:w-auto flex-1">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full sm:w-auto flex-1"
+            onClick={() => navigate(-1)}
+          >
             Cancel
           </Button>
         </div>

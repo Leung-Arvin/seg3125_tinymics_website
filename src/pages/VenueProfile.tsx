@@ -3,11 +3,13 @@ import { getVenues, getEvents } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import type { VenueData, EventData } from "@/lib/storage";
+import VenueCard from "@/components/ui/venueCard";
 
 export default function VenueProfilePage() {
   const navigate = useNavigate();
   const [venue, setVenue] = useState<VenueData | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
+
   const handleCreateEvent = () => {
     navigate("/event-form");
   };
@@ -19,9 +21,12 @@ export default function VenueProfilePage() {
     if (found) {
       setVenue(found);
       const allEvents = getEvents();
-      const venueEvents = allEvents.filter(
-        (event) => event.venueId === found.id
-      );
+      const venueEvents = allEvents
+        .filter((event) => event.venueId === found.id)
+        .map((event) => ({
+          ...event,
+          date: event.date ? new Date(event.date) : undefined,
+        }));
       setEvents(venueEvents);
     }
   }, []);
@@ -49,6 +54,7 @@ export default function VenueProfilePage() {
           </p>
         </div>
       </div>
+
       <div className="w-full max-w-5xl mt-8">
         <Button
           onClick={handleCreateEvent}
@@ -56,24 +62,41 @@ export default function VenueProfilePage() {
         >
           Create New Event
         </Button>
-        <div className="bg-white p-6 rounded-lg">
-          <h3 className="text-black mb-4">My Events</h3>
+
+        <div className="p-6 rounded-lg border">
+          <h2 className="mb-4 uppercase">My Events</h2>
 
           {events.length === 0 ? (
             <p className="text-gray-500">No events yet.</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {events.map((event) => (
-                <div
+                <VenueCard
                   key={event.id}
-                  className="bg-[#1f1f1f] rounded-lg h-36 sm:h-40 lg:h-48 p-4 text-white"
-                >
-                  <p className="font-semibold">{event.genre}</p>
-                  <p className="text-sm text-gray-300">
-                    {event.date?.toString() || "No date"}
-                  </p>
-                  <p className="text-sm text-gray-300">{event.notes}</p>
-                </div>
+                  id={parseInt(event.id)}
+                  eventName={event.eventName}
+                  name={venue.name}
+                  location={venue.address}
+                  genre={event.genre}
+                  payRange={event.payout}
+                  date={event.date}
+                  dateObj={event.date || new Date()}
+                  imageUrl=""
+                  rating={0}
+                  seating={0}
+                  contact={venue.email}
+                  notes={event.notes}
+                  equipment={event.equipment ?? []}
+                  setLength={event.setLength}
+                  sound_check_time={""}
+                  perks={event.perks}
+                  payMin={0}
+                  payMax={0}
+                  type={""}
+                  time={""}
+                  payout={event.payout}
+                  venueId={event.venueId}
+                />
               ))}
             </div>
           )}

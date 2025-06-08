@@ -1,27 +1,36 @@
 import type { row } from "@/components/form/List";
 
 export type EventData = {
-  venueId?: string;
-  id: string;
+  id: any;
+  eventName?: string;
+  location?: string;
+  payMin?: number;
+  payMax?: number;
+  contact?: string;
+  imageUrl?: string;
   date?: Date;
   time: string;
   genre: string;
   payout: string;
-  seating: string;
+  seating: number;
   setLength: string;
   perks: string;
   notes: string;
-  equipment: row[];
+  equipment?: {
+    id: number;
+    equipment: string;
+    quantity: string;
+  }[];
+  venueId: number | string;
+  sound_check_time?: string;
 };
 
 export type VenueData = {
   id: string;
   name: string;
   email: string;
-  type: string;
-  capacity: number;
-  description: string;
   address: string;
+  description?: string;
 };
 
 type ArtistData = {

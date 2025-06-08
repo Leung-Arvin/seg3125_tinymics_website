@@ -47,7 +47,7 @@ export default function ArtistRegistration() {
             label="Email"
             type="email"
             placeholder="e.g. venue@example.com"
-            required
+            required={true}
             value={formData.email}
             onChange={(e) => handleChange("email", e.target.value)}
           />
@@ -55,7 +55,7 @@ export default function ArtistRegistration() {
             label="Artist/Band name"
             type="text"
             placeholder="e.g. Jane Doe"
-            required
+            required={true}
             value={formData.artistName}
             onChange={(e) => handleChange("artistName", e.target.value)}
           />
@@ -65,7 +65,7 @@ export default function ArtistRegistration() {
           label="Password"
           type="password"
           placeholder="Enter password"
-          required
+          required={true}
           value={formData.password}
           onChange={(e) => handleChange("password", e.target.value)}
         />
@@ -74,7 +74,7 @@ export default function ArtistRegistration() {
           label="Confirm Password"
           type="password"
           placeholder="Re-enter password"
-          required
+          required={true}
           value={formData.confirmPassword}
           onChange={(e) => handleChange("confirmPassword", e.target.value)}
         />

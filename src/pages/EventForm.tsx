@@ -7,10 +7,12 @@ import { FormTextArea } from "@/components/form/FormTextArea";
 import { FormDateTimePicker } from "@/components/form/FormDateTimePicker";
 import { FormCheckbox } from "@/components/form/FormCheckbox";
 import { getEvents, saveEvent } from "@/lib/storage";
+import { useNavigate } from "react-router-dom";
 
 const Genre = ["Acoustic", "Jazz", "DJs", "Rock", "Classical"];
 
 export default function EventForm() {
+  const navigate = useNavigate();
   const [equipment, setEquipment] = useState<row[]>([]);
   const [time, setTime] = useState("");
   const [date, setDate] = useState<Date>();
@@ -30,17 +32,23 @@ export default function EventForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    const venueId = localStorage.getItem("activeVenueId");
+    console.log(venueId, " has created this event");
+    if (!venueId) {
+      alert("No active venue. Please log in again.");
+      return;
+    }
     const completeFormData = {
       ...formData,
+      venueId,
       time,
       equipment,
       date,
     };
 
     saveEvent(completeFormData);
-
     console.log("Form Data:", getEvents());
+    navigate("/venue/profile");
   };
 
   return (

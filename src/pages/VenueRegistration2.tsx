@@ -57,9 +57,11 @@ export default function VenueRegistration2() {
     };
 
     const savedVenue = saveVenue(newVenue);
+
+    localStorage.setItem("activeVenueId", savedVenue.id);
     localStorage.removeItem("venue-partial");
 
-    console.log("Saved venue:", savedVenue);
+    window.location.href = "/venue/profile";
   };
 
   return (
@@ -115,7 +117,7 @@ export default function VenueRegistration2() {
           >
             Back
           </Button>
-          <Button variant="outline" className="w-full sm:w-auto flex-1">
+          <Button type="submit" className="w-full sm:w-auto flex-1">
             Next
           </Button>
         </div>

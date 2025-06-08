@@ -1,6 +1,7 @@
 import type { row } from "@/components/form/List";
 
-type EventData = {
+export type EventData = {
+  venueId?: string;
   id: string;
   date?: Date;
   time: string;
@@ -13,7 +14,7 @@ type EventData = {
   equipment: row[];
 };
 
-type VenueData = {
+export type VenueData = {
   id: string;
   name: string;
   email: string;

@@ -6,6 +6,7 @@ import CreateAccount from "./pages/CreateAccount";
 import VenueRegistration from "./pages/VenueRegistration";
 import ArtistRegistration from "./pages/ArtistRegistration";
 import VenueRegistration2 from "./pages/VenueRegistration2";
+import VenueProfile from "./pages/VenueProfile";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         element={<VenueRegistration2 />}
       />
       <Route path="/register/artist" element={<ArtistRegistration />} />
+      <Route path="/venue/profile" element={<VenueProfile />} />
     </Routes>
   );
 };

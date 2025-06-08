@@ -15,7 +15,7 @@ const venueData = [
     payMin: 300,
     payMax: 500,
     date: "Sat, Oct 21 @ 8–11pm",
-    dateObj: new Date(2023, 9, 21, 20), 
+    dateObj: new Date(2023, 9, 21, 20),
     imageUrl:
       "https://d2l4kn3pfhqw69.cloudfront.net/wp-content/uploads/2023/08/cafe23.jpg",
     rating: 5,
@@ -107,14 +107,18 @@ const venueData = [
 ];
 
 const Home = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const userEmail = localStorage.getItem("userEmail");
+
   const navigate = useNavigate();
   const [venues] = useState(venueData);
-  const [activeHero, setActiveHero] = useState<keyof typeof heroContent>("artists");
+  const [activeHero, setActiveHero] =
+    useState<keyof typeof heroContent>("artists");
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<number>(0);
 
   const toggleHero = () => {
-    setActiveHero(prev => prev === "artists" ? "venues" : "artists");
+    setActiveHero((prev) => (prev === "artists" ? "venues" : "artists"));
     setProgress(0);
   };
 
@@ -123,33 +127,33 @@ const Home = () => {
       title: "WHERE DREAMS FIND STAGES",
       subtitle: "Gigs near you, booked in minutes",
       image: "src/assets/hero-performer.png",
-      alt: "Artist performing"
+      alt: "Artist performing",
     },
     venues: {
       title: "WHERE STAGES FIND TALENT",
       subtitle: "Find the perfect performers for your venue",
-      image: "src/assets/hero-venue.png", 
-      alt: "Venue stage"
-    }
+      image: "src/assets/hero-venue.png",
+      alt: "Venue stage",
+    },
   };
 
   useEffect(() => {
-      localStorage.setItem("venues",JSON.stringify(venueData));
+    localStorage.setItem("venues", JSON.stringify(venueData));
 
-      intervalRef.current = window.setInterval(() => {
-        setProgress(prev => {
-          if (prev >= 100) {
-            toggleHero();
-            return 0;
-          }
-          return prev + (100 / (15 * 10));
-        });
-      }, 100);
-    
-      return () => {
-        window.clearInterval(intervalRef.current);
-      };
-    }, []);
+    intervalRef.current = window.setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          toggleHero();
+          return 0;
+        }
+        return prev + 100 / (15 * 10);
+      });
+    }, 100);
+
+    return () => {
+      window.clearInterval(intervalRef.current);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -159,26 +163,51 @@ const Home = () => {
       <section className="flex flex-col-reverse md:flex-row justify-between lg:justify-evenly items-center px-10 py-20 gap-10">
         <div className="max-w-xl justify-center">
           <h1 className="text-center">{heroContent[activeHero].title}</h1>
-          <h3 className="text-center pt-4">{heroContent[activeHero].subtitle}</h3>
+          <h3 className="text-center pt-4">
+            {heroContent[activeHero].subtitle}
+          </h3>
           <div className="flex justify-center pt-4 space-x-8">
-            <img onClick={() => {toggleHero()}} className="cursor-pointer" src="src/assets/play-arrow.svg" alt="" />
-            <Button
-              variant="default"
-              onClick={() => console.log("Login clicked")}
-            >
-              Login
-            </Button>
+            <img
+              onClick={() => {
+                toggleHero();
+              }}
+              className="cursor-pointer"
+              src="src/assets/play-arrow.svg"
+              alt=""
+            />
+            {isLoggedIn ? (
+              <div className="text-center">
+                <p className="text-md font-semibold">
+                  Welcome back{userEmail ? `, ${userEmail}` : ""}!
+                </p>
+                <Button
+                  className="mt-2"
+                  variant="default"
+                  onClick={() => navigate("/discover")}
+                >
+                  Discover nearby
+                </Button>
+              </div>
+            ) : (
+              <Button variant="default" onClick={() => navigate("/login")}>
+                Login
+              </Button>
+            )}
             <img
               src="src/assets/play-arrow.svg"
               alt=""
               className="-scale-x-100 cursor-pointer"
-              onClick={() => {toggleHero()}}
+              onClick={() => {
+                toggleHero();
+              }}
             />
           </div>
 
-          <p className="mt-2 text-sm underline cursor-pointer text-center pt-4">
-            Create an account
-          </p>
+          {!isLoggedIn && (
+            <p className="mt-2 text-sm underline cursor-pointer text-center pt-4">
+              Create an account
+            </p>
+          )}
         </div>
 
         <div className="rounded-xl overflow-hidden">
@@ -189,14 +218,11 @@ const Home = () => {
           />
 
           <div className="w-full bg-gray-200 rounded-full h-2 mt-8">
-            <div 
-              className="background-accent h-2 rounded-full" 
+            <div
+              className="background-accent h-2 rounded-full"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          
-        
-         
         </div>
       </section>
 
@@ -229,15 +255,17 @@ const Home = () => {
             perks={venue.perks}
             payMax={venue.payMax}
             payMin={venue.payMin}
-        />
+          />
         ))}
       </section>
 
       <section className="text-center pb-20">
-        <Button 
+        <Button
           variant="default"
           className="text-lg"
-          onClick={() => {navigate("/discover")}}
+          onClick={() => {
+            navigate("/discover");
+          }}
         >
           Discover More Venues
           <ArrowRight className="ml-2 h-4 w-4" />

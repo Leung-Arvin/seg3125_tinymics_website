@@ -69,13 +69,6 @@ export default function VenueRegistration2() {
     >
       <div className="w-full max-w-xl space-y-6">
         <p>Please register by completing the information below</p>
-
-        {ownerData?.email && (
-          <p className="text-sm text-gray-500 text-center">
-            Registering as: {ownerData.email}
-          </p>
-        )}
-
         <FormInput
           label="Business Name"
           type="string"

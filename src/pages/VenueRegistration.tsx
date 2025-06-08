@@ -82,7 +82,13 @@ export default function VenueRegistration() {
           value={formData.confirmPassword}
           onChange={(e) => handleChange("confirmPassword", e.target.value)}
         />
-
+        <Button
+          type="button"
+          className="w-full sm:w-auto flex-1"
+          onClick={() => (window.location.href = "/create-account")}
+        >
+          Back
+        </Button>
         <Button type="submit" className="w-full sm:w-auto mt-6">
           Next
         </Button>

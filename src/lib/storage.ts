@@ -35,7 +35,7 @@ export const saveArtist = (artistData: Omit<ArtistData, "id">) => {
     ...artistData,
     id: `${artistData.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}`,
   };
-  localStorage.setItem("events", JSON.stringify([...artists, newArtist]));
+  localStorage.setItem("artists", JSON.stringify([...artists, newArtist]));
   return newArtist;
 };
 

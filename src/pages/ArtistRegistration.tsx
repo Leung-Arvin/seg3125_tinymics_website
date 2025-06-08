@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
+import { saveArtist } from "@/lib/storage";
 
 export default function ArtistRegistration() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,12 @@ export default function ArtistRegistration() {
       return;
     }
 
-    console.log("Artist registration data:", formData);
+    const newArtist = saveArtist({
+      email: formData.email,
+      name: formData.artistName,
+    });
+
+    console.log("Saved artist:", newArtist);
   };
 
   return (
@@ -38,7 +44,7 @@ export default function ArtistRegistration() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormInput
-            label="Business Email"
+            label="Email"
             type="email"
             placeholder="e.g. venue@example.com"
             required
@@ -72,7 +78,13 @@ export default function ArtistRegistration() {
           value={formData.confirmPassword}
           onChange={(e) => handleChange("confirmPassword", e.target.value)}
         />
-
+        <Button
+          type="button"
+          className="w-full sm:w-auto flex-1"
+          onClick={() => (window.location.href = "/create-account")}
+        >
+          Back
+        </Button>
         <Button type="submit" className="w-full sm:w-auto mt-6">
           Next
         </Button>

@@ -185,10 +185,9 @@ const Home = () => {
           <img
             src={heroContent[activeHero].image}
             alt={heroContent[activeHero].alt}
-            className="w-full md:h-full md:w-full lg:h-150 lg:w-150 object-cover rounded-xl"
+            className="w-full md:h-100 md:w-100 lg:h-150 lg:w-150 object-cover rounded-xl"
           />
 
-          {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-2 mt-8">
             <div 
               className="background-accent h-2 rounded-full" 

@@ -44,9 +44,9 @@ export default function VenueDetail() {
   }
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <Navbar variant="form" />
-      <div className="p-10 mt-20 flex flex-col gap-20">
+      <div className="p-10 mt-10 flex flex-col gap-20">
         <div className="grid grid-cols-1 md:grid-cols-2  gap-10">
           <div className="flex flex-col gap-10">
             <section>
@@ -122,8 +122,8 @@ export default function VenueDetail() {
               label="Set List "
               emptyItemName="songs"
             />
-            <h3>{"SoundCheck Time: 6:30"}</h3>
-            <h3>{"Perks: Meal & Drink"}</h3>
+            <h3>{"SoundCheck Time: " + bookingData.venue?.sound_check_time}</h3>
+            <h3>{"Perks: " + bookingData.venue?.perks}</h3>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 ">

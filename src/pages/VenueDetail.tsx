@@ -44,7 +44,7 @@ export default function VenueDetail() {
   }
 
   return (
-    <div>
+    <div className="h-screen">
       <Navbar variant="form" />
       <div className="p-10 mt-20 flex flex-col gap-20">
         <div className="grid grid-cols-1 md:grid-cols-2  gap-10">
@@ -120,6 +120,7 @@ export default function VenueDetail() {
               column1Placeholder="e.g. song title"
               column2Placeholder="e.g. 5 mins"
               label="Set List "
+              emptyItemName="songs"
             />
             <h3>{"SoundCheck Time: 6:30"}</h3>
             <h3>{"Perks: Meal & Drink"}</h3>

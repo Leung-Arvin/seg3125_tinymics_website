@@ -24,6 +24,7 @@ const App = () => {
         path="/register/venue-continued"
         element={<VenueRegistration2 />}
       />
+      <Route path="/artist-application-form" element={<ArtistApplicationForm/>}/>
       <Route path="/register/artist" element={<ArtistRegistration />} />
       <Route path="/venue/profile" element={<VenueProfile />} />
       <Route path="/discover" element={<Discover/>}/>

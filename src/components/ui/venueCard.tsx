@@ -12,9 +12,9 @@ export type Venue = {
     payMax: number;
     type: string;
     date: string;
+    time: string;
     dateObj: Date;
     imageUrl: string;
-    rating: number;
     seating: number;
     contact: string;
     additional_info: string;
@@ -37,9 +37,9 @@ interface VenueCardProps {
     payMax: number;
     type: string;
     date?: string;
+    time: string;
     dateObj: Date;
     imageUrl?: string;
-    rating: number;
     seating: number;
     contact: string;
     additional_info: string;
@@ -61,7 +61,7 @@ const VenueCard = ({
   date,
   dateObj,
   imageUrl,
-  rating,
+  time,
   seating,
   payMin,
   payMax,
@@ -85,7 +85,6 @@ const VenueCard = ({
       payRange,
       date,
       imageUrl,
-      rating,
       seating,
       payMin,
       payMax,
@@ -101,10 +100,13 @@ const VenueCard = ({
 
   return (
     <div className="background-white rounded-3xl overflow-hidden shadow-xl max-w-md w-full black-text">
+      <img
+        src={imageUrl}
+        className="w-full h-56 object-cover rounded-t-3xl"
+      />
       <div className="p-6 border border-gray-300">
         <h5 className="mb-2 uppercase text-bold">{eventName}</h5>
         <div className="text-sm leading-6 flex flex-col gap-1">
-          <img src={imageUrl}></img>
           
           <p>
             <span className="font-semibold">Genre:</span> {genre}
@@ -114,14 +116,10 @@ const VenueCard = ({
           </p>
           <p>
             <span className="font-semibold">Date:</span>{" "}
-            {date
-              ? dateObj.toLocaleDateString("en-GB") +
+            { new Date(dateObj).toLocaleDateString("en-GB") +
                 ", " +
-                dateObj.toLocaleTimeString("en-US", {
-                  hour: "numeric",
-                  minute: "2-digit",
-                })
-              : "N/A"}
+               time
+             }
           </p>
 
           {set_length && (

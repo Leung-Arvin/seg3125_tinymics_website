@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const venueData = [
   {
     id: 1,
-    name: "The Blue Note Café",
+    eventName: "The Blue Note Café",
     location: "123 Jazz Lane",
     genre: "Jazz, Folk, Acoustic",
     payRange: "$300–$500 (plus bar tips)",
@@ -19,7 +19,7 @@ const venueData = [
     imageUrl:
       "https://d2l4kn3pfhqw69.cloudfront.net/wp-content/uploads/2023/08/cafe23.jpg",
     rating: 5,
-    audience: 108,
+    seating: 108,
     type: "Cafe",
     contact: "Jennie",
     additional_info: "you can sell merch",
@@ -41,7 +41,7 @@ const venueData = [
   },
   {
     id: 2,
-    name: "The Rusty Keg",
+    eventName: "The Rusty Keg",
     location: "456 Brew Street",
     genre: "Rock, Blues",
     payRange: "$400–$600",
@@ -52,7 +52,7 @@ const venueData = [
     imageUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/a0/63/35/goose-island-brewhouse.jpg?w=600&h=-1&s=1",
     rating: 4,
-    audience: 150,
+    seating: 150,
     type: "Bar",
     contact: "Jack",
     additional_info: "you can sell merch",
@@ -74,7 +74,7 @@ const venueData = [
   },
   {
     id: 3,
-    name: "Satellite Lounge",
+    eventName: "Satellite Lounge",
     location: "789 Orbit Ave",
     genre: "Electronic, DJ",
     payRange: "$500–$700",
@@ -84,7 +84,7 @@ const venueData = [
     dateObj: new Date(2023, 9, 21, 22),
     imageUrl: "https://ressources.sat.qc.ca/uploads/2024/07/cafesat64-_web.jpg",
     rating: 4,
-    audience: 200,
+    seating: 200,
     type: "Club",
     contact: "Jona",
     additional_info: "you can sell merch",
@@ -212,16 +212,16 @@ const Home = () => {
           <VenueCard
             id={venue.id}
             key={venue.id}
-            eventName={venue.name}
+            eventName={venue.eventName}
             location={venue.location}
             genre={venue.genre}
             payRange={venue.payRange}
             date={venue.date}
             type={venue.type}
+            time="3:00pm"
             dateObj={venue.dateObj}
             imageUrl={venue.imageUrl}
-            rating={venue.rating}
-            seating={venue.audience}
+            seating={venue.seating}
             contact={venue.contact}
             additional_info={venue.additional_info}
             equipment={venue.equipment}

@@ -77,12 +77,12 @@ export default function VenueProfilePage() {
                   eventName={event.eventName}
                   location={venue.address}
                   genre={event.genre}
-                  payRange={event.payMin + "-" + event.payMax}
+                  payRange={ "$" + event.payMin + " - $" + event.payMax}
                   date={event.date?.toDateString() && ""}
+                  time={event.time}
                   dateObj={event.date || new Date()}
                   imageUrl={event.imageUrl}
-                  rating={0}
-                  seating={0}
+                  seating={event.seating}
                   contact={venue.email}
                   equipment={event.equipment ?? []}
                   set_length={event.setLength}

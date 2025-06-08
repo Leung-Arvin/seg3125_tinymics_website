@@ -11,18 +11,18 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-white border-black border-2 text-black shadow-xs hover:bg-gray-200 ",
+          "bg-white text-black shadow-xs hover:bg-gray-200 ",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-blue-500 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background text-white shadow-xs hover:bg-gray-800 hover:text-[] dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+          "background-accent text-white shadow-lg hover:bg-gray-200 ",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         calendar:
-          "bg-primary border-white border-2 text-white"
+          "bg-primary border-white border-2 text-white",
       },
       size: {
         default: "h-9 px-10 py-4 has-[>svg]:px-3",

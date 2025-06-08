@@ -21,6 +21,6 @@ export const FormTextArea = ({
       {label}
       {required && <span className="text-red-500">*</span>}
     </Label>
-    <Textarea className={cn("w-full min-h-[120px]", className)} {...props} />
+    <Textarea required={required} className={cn("w-full min-h-[120px]", className)} {...props} />
   </div>
 );

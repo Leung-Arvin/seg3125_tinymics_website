@@ -1,7 +1,7 @@
 import type { row } from "@/components/form/List";
 
 export type EventData = {
-  id: any;
+  id: string;
   eventName?: string;
   location?: string;
   payMin?: number;
@@ -11,7 +11,6 @@ export type EventData = {
   date?: Date;
   time: string;
   genre: string;
-  payout: string;
   seating: number;
   setLength: string;
   perks: string;

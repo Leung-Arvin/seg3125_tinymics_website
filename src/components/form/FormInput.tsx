@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 interface FormInputProps extends React.ComponentProps<"input"> {
+  id?: string;
   label: string;
   containerClass?: string;
   required?: boolean;
@@ -11,6 +12,7 @@ interface FormInputProps extends React.ComponentProps<"input"> {
 }
 
 export const FormInput = ({
+  id,
   label,
   containerClass,
   required = false,
@@ -22,6 +24,6 @@ export const FormInput = ({
       {label}
       {required && <span className="text-red-500 ml-1">*</span>}
       </Label>
-    <Input className={cn("w-full", className)} {...props} />
+    <Input id={id} className={cn("w-full", className)} {...props} required={required}/>
   </div>
 );

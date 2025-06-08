@@ -23,6 +23,7 @@ interface ListProps {
   containerClass?: string;
   label: string;
   required?: boolean;
+  className?: string;
   initialData?: { id: string; col1: string; col2: string }[];
   onDataChange?: (data: { id: string; col1: string; col2: string }[]) => void;
 }
@@ -34,6 +35,7 @@ export type row = {
 };
 
 export const List = ({
+  className,
   column1Header,
   column2Header,
   column1Placeholder,
@@ -106,14 +108,14 @@ export const List = ({
       <Label className="text-lg text-white mb-5">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
-      </Label>
-      <div className="rounded-md bordr">
-        <Table className=" border-2">
+        </Label>
+      <div className="rounded-md border">
+        <Table className={className}>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[45%]">{column1Header}</TableHead>
               <TableHead className="w-[45%]">{column2Header}</TableHead>
-              <TableHead className="w-[10%] text-right">Actions</TableHead>
+              <TableHead className="w-[10%] text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

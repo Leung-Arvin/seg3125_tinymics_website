@@ -7,6 +7,11 @@ import VenueRegistration from "./pages/VenueRegistration";
 import ArtistRegistration from "./pages/ArtistRegistration";
 import VenueRegistration2 from "./pages/VenueRegistration2";
 import VenueProfile from "./pages/VenueProfile";
+import Discover from "./pages/Discover";
+import ArtistApplicationForm from "./pages/ArtistApplicationForm";
+import VenueDetail from "./pages/VenueDetail";
+import ArtistBookingConfirmation from "./pages/ArtistBookingConfirmation";
+import ArtistApplicationDialog from "./pages/ArtistApplicationDialog";
 
 const App = () => {
   return (
@@ -14,15 +19,19 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/event-form" element={<EventForm />} />
       <Route path="/create-account" element={<CreateAccount />} />
-      <Route path="/register/venue" element={<VenueRegistration />} />
+      <Route path="/register/venue" element={<VenueRegistration/>}/>
       <Route
         path="/register/venue-continued"
         element={<VenueRegistration2 />}
       />
       <Route path="/register/artist" element={<ArtistRegistration />} />
       <Route path="/venue/profile" element={<VenueProfile />} />
+      <Route path="/discover" element={<Discover/>}/>
+      <Route path="/venue-details" element={<VenueDetail/>}/>
+      <Route path="/artist-booking-confirmation" element={<ArtistBookingConfirmation/>}/>
+      <Route path="/artist-application-dialog" element={<ArtistApplicationDialog/>}/>
     </Routes>
   );
-};
+}
 
 export default App;

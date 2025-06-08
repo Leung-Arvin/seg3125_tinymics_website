@@ -37,7 +37,12 @@
 }
 
 body {
-  background-color: var(--black);
+  /* background-color: var(--black); */
+  background: #BDD5EA;
+  background: linear-gradient(180deg,rgb(89, 106, 121) 0%, rgba(0, 0, 0, 1) 50%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background: linear-gradient() */
   color: var(--white);
   margin: 2rem;
 }
@@ -51,9 +56,16 @@ body {
 .accent-text {
   color: var(--accent);
 }
+
 .background-accent {
   background-color: var(--accent);
+  box-shadow: 5px 5px 10px rgba(36, 36, 36, 0.5);
 }
+
+.background-accent:hover {
+  box-shadow: 2px 2px 5px rgba(36, 36, 36, 0.5);
+}
+
 .background-white {
   background-color: var(--white);
 }
@@ -93,3 +105,4 @@ p {
   font-size: 15px;
   line-height: 92%;
 }
+

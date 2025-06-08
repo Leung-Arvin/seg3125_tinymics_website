@@ -75,27 +75,23 @@ export default function VenueProfilePage() {
                   key={event.id}
                   id={parseInt(event.id)}
                   eventName={event.eventName}
-                  name={venue.name}
                   location={venue.address}
                   genre={event.genre}
-                  payRange={event.payout}
-                  date={event.date}
+                  payRange={event.payMin + "-" + event.payMax}
+                  date={event.date?.toDateString() && ""}
                   dateObj={event.date || new Date()}
-                  imageUrl=""
+                  imageUrl={event.imageUrl}
                   rating={0}
                   seating={0}
                   contact={venue.email}
-                  notes={event.notes}
                   equipment={event.equipment ?? []}
-                  setLength={event.setLength}
+                  set_length={event.setLength}
                   sound_check_time={""}
                   perks={event.perks}
                   payMin={0}
                   payMax={0}
                   type={""}
-                  time={""}
-                  payout={event.payout}
-                  venueId={event.venueId}
+                  additional_info="adad"
                 />
               ))}
             </div>

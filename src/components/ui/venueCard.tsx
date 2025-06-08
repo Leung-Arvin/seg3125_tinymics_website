@@ -1,82 +1,132 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./button";
-import { type EventData } from "@/lib/storage";
 
-interface VenueCardProps extends EventData {
-  name: string;
-  payRange?: string;
-  dateObj?: Date;
-  rating?: any;
-  type?: any;
+export type Venue = {
+    id: number;
+    eventName: string;
+    location: string;
+    genre: string;
+    payRange: string;
+    payMin: number;
+    payMax: number;
+    type: string;
+    date: string;
+    dateObj: Date;
+    imageUrl: string;
+    rating: number;
+    seating: number;
+    contact: string;
+    additional_info: string;
+    equipment: {
+      id: number,
+      equipment: string,
+      quantity: string
+    }[],
+    set_length: string;
+    sound_check_time: string;
+    perks: string;
+}
+interface VenueCardProps {
+  id: number;
+    eventName?: string;
+    location: string;
+    genre: string;
+    payRange: string;
+    payMin: number;
+    payMax: number;
+    type: string;
+    date?: string;
+    dateObj: Date;
+    imageUrl?: string;
+    rating: number;
+    seating: number;
+    contact: string;
+    additional_info: string;
+    equipment: {
+      id: number,
+      equipment: string,
+      quantity: string
+    }[],
+    set_length: string;
+    sound_check_time: string;
+    perks: string;
 }
 
 const VenueCard = ({
-  venueId,
+  id,
   eventName,
-  name,
-  date,
-  time,
   genre,
-  payout,
+  payRange,
+  date,
+  dateObj,
+  imageUrl,
+  rating,
   seating,
-  setLength,
-  perks,
-  notes,
+  payMin,
+  payMax,
+  contact,
   equipment,
+  set_length,
+  sound_check_time,
+  perks
 }: VenueCardProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleApply = () => {
     setIsLoading(true);
+    
+    localStorage.setItem('selectedVenue', JSON.stringify({
+      id,
+      eventName,
+      location,
+      genre,
+      payRange,
+      date,
+      imageUrl,
+      rating,
+      seating,
+      payMin,
+      payMax,
+      contact,
+      equipment,
+      set_length,
+      sound_check_time,
+      perks
+    }));
 
-    localStorage.setItem(
-      "selectedEvent",
-      JSON.stringify({
-        venueId,
-        date,
-        time,
-        genre,
-        payout,
-        seating,
-        setLength,
-        perks,
-        notes,
-        equipment,
-      })
-    );
-
-    navigate("/artist-application-dialog");
+    navigate('/artist-application-dialog');
   };
 
   return (
     <div className="background-white rounded-3xl overflow-hidden shadow-xl max-w-md w-full black-text">
       <div className="p-6 border border-gray-300">
         <h5 className="mb-2 uppercase text-bold">{eventName}</h5>
-        <h5 className="mb-2 uppercase text-bold">{name}</h5>
         <div className="text-sm leading-6 flex flex-col gap-1">
+          <img src={imageUrl}></img>
+          
           <p>
             <span className="font-semibold">Genre:</span> {genre}
           </p>
           <p>
-            <span className="font-semibold">Pay(CAD):</span> {payout}
+            <span className="font-semibold">Pay(CAD):</span> {payRange}
           </p>
           <p>
             <span className="font-semibold">Date:</span>{" "}
             {date
-              ? date.toLocaleDateString("en-GB") +
+              ? dateObj.toLocaleDateString("en-GB") +
                 ", " +
-                date.toLocaleTimeString("en-US", {
+                dateObj.toLocaleTimeString("en-US", {
                   hour: "numeric",
                   minute: "2-digit",
                 })
               : "N/A"}
           </p>
 
-          {setLength && (
+          {set_length && (
             <p>
-              <span className="font-semibold">Set Length:</span> {setLength}
+              <span className="font-semibold">Set Length:</span> {set_length}
             </p>
           )}
           {perks && (
@@ -93,11 +143,8 @@ const VenueCard = ({
               <span>{seating}</span>
             </div>
           </div>
-          <Button
-            onClick={handleApply}
-            disabled={isLoading}
-            variant="secondary"
-          >
+
+          <Button onClick={handleApply} disabled={isLoading} variant="secondary">
             APPLY
           </Button>
         </div>

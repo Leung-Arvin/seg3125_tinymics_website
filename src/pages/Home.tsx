@@ -14,7 +14,8 @@ const venueData = [
     payRange: "$300–$500 (plus bar tips)",
     payMin: 300,
     payMax: 500,
-    date: new Date(2023, 9, 21, 20),
+    date: "Sat, Oct 21 @ 8–11pm",
+    dateObj: new Date(2023, 9, 21, 20), 
     imageUrl:
       "https://d2l4kn3pfhqw69.cloudfront.net/wp-content/uploads/2023/08/cafe23.jpg",
     rating: 5,
@@ -46,7 +47,8 @@ const venueData = [
     payRange: "$400–$600",
     payMin: 400,
     payMax: 600,
-    date: new Date(2023, 9, 20, 21),
+    date: "Fri, Oct 20 @ 9pm–12am",
+    dateObj: new Date(2023, 9, 20, 21),
     imageUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/a0/63/35/goose-island-brewhouse.jpg?w=600&h=-1&s=1",
     rating: 4,
@@ -78,7 +80,8 @@ const venueData = [
     payRange: "$500–$700",
     payMin: 500,
     payMax: 700,
-    date: new Date(2023, 9, 21, 22),
+    date: "Sat, Oct 21 @ 10pm–2am",
+    dateObj: new Date(2023, 9, 21, 22),
     imageUrl: "https://ressources.sat.qc.ca/uploads/2024/07/cafesat64-_web.jpg",
     rating: 4,
     audience: 200,
@@ -106,13 +109,12 @@ const venueData = [
 const Home = () => {
   const navigate = useNavigate();
   const [venues] = useState(venueData);
-  const [activeHero, setActiveHero] =
-    useState<keyof typeof heroContent>("artists");
+  const [activeHero, setActiveHero] = useState<keyof typeof heroContent>("artists");
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<number>(0);
 
   const toggleHero = () => {
-    setActiveHero((prev) => (prev === "artists" ? "venues" : "artists"));
+    setActiveHero(prev => prev === "artists" ? "venues" : "artists");
     setProgress(0);
   };
 
@@ -121,33 +123,33 @@ const Home = () => {
       title: "WHERE DREAMS FIND STAGES",
       subtitle: "Gigs near you, booked in minutes",
       image: "src/assets/hero-performer.png",
-      alt: "Artist performing",
+      alt: "Artist performing"
     },
     venues: {
       title: "WHERE STAGES FIND TALENT",
       subtitle: "Find the perfect performers for your venue",
-      image: "src/assets/hero-venue.png",
-      alt: "Venue stage",
-    },
+      image: "src/assets/hero-venue.png", 
+      alt: "Venue stage"
+    }
   };
 
   useEffect(() => {
-    localStorage.setItem("venues", JSON.stringify(venueData));
+      localStorage.setItem("venues",JSON.stringify(venueData));
 
-    intervalRef.current = window.setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          toggleHero();
-          return 0;
-        }
-        return prev + 100 / (15 * 10);
-      });
-    }, 100);
-
-    return () => {
-      window.clearInterval(intervalRef.current);
-    };
-  }, []);
+      intervalRef.current = window.setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            toggleHero();
+            return 0;
+          }
+          return prev + (100 / (15 * 10));
+        });
+      }, 100);
+    
+      return () => {
+        window.clearInterval(intervalRef.current);
+      };
+    }, []);
 
   return (
     <div className="min-h-screen">
@@ -157,18 +159,9 @@ const Home = () => {
       <section className="flex flex-col-reverse md:flex-row justify-between lg:justify-evenly items-center px-10 py-20 gap-10">
         <div className="max-w-xl justify-center">
           <h1 className="text-center">{heroContent[activeHero].title}</h1>
-          <h3 className="text-center pt-4">
-            {heroContent[activeHero].subtitle}
-          </h3>
+          <h3 className="text-center pt-4">{heroContent[activeHero].subtitle}</h3>
           <div className="flex justify-center pt-4 space-x-8">
-            <img
-              onClick={() => {
-                toggleHero();
-              }}
-              className="cursor-pointer"
-              src="src/assets/play-arrow.svg"
-              alt=""
-            />
+            <img onClick={() => {toggleHero()}} className="cursor-pointer" src="src/assets/play-arrow.svg" alt="" />
             <Button
               variant="default"
               onClick={() => console.log("Login clicked")}
@@ -179,9 +172,7 @@ const Home = () => {
               src="src/assets/play-arrow.svg"
               alt=""
               className="-scale-x-100 cursor-pointer"
-              onClick={() => {
-                toggleHero();
-              }}
+              onClick={() => {toggleHero()}}
             />
           </div>
 
@@ -194,16 +185,18 @@ const Home = () => {
           <img
             src={heroContent[activeHero].image}
             alt={heroContent[activeHero].alt}
-            className="w-full md:h-full md:w-full lg:h-150 lg:w-150 object-cover rounded-xl"
+            className="w-full md:h-100 md:w-100 lg:h-150 lg:w-150 object-cover rounded-xl"
           />
 
-          {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-2 mt-8">
-            <div
-              className="background-accent h-2 rounded-full"
+            <div 
+              className="background-accent h-2 rounded-full" 
               style={{ width: `${progress}%` }}
             ></div>
           </div>
+          
+        
+         
         </div>
       </section>
 
@@ -219,37 +212,33 @@ const Home = () => {
           <VenueCard
             id={venue.id}
             key={venue.id}
-            name={venue.name}
+            eventName={venue.name}
             location={venue.location}
             genre={venue.genre}
             payRange={venue.payRange}
             date={venue.date}
+            type={venue.type}
+            dateObj={venue.dateObj}
             imageUrl={venue.imageUrl}
             rating={venue.rating}
             seating={venue.audience}
             contact={venue.contact}
-            notes={venue.additional_info}
+            additional_info={venue.additional_info}
             equipment={venue.equipment}
-            setLength={venue.set_length}
+            set_length={venue.set_length}
             sound_check_time={venue.sound_check_time}
             perks={venue.perks}
             payMax={venue.payMax}
             payMin={venue.payMin}
-            type={""}
-            time={""}
-            payout={venue.payRange}
-            venueId={venue.id}
-          />
+        />
         ))}
       </section>
 
       <section className="text-center pb-20">
-        <Button
+        <Button 
           variant="default"
           className="text-lg"
-          onClick={() => {
-            navigate("/discover");
-          }}
+          onClick={() => {navigate("/discover")}}
         >
           Discover More Venues
           <ArrowRight className="ml-2 h-4 w-4" />

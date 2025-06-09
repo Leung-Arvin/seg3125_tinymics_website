@@ -126,13 +126,13 @@ const Home = () => {
     artists: {
       title: "WHERE DREAMS FIND STAGES",
       subtitle: "Gigs near you, booked in minutes",
-      image: "src/assets/hero-performer.png",
+      image: "/src/assets/hero-performer.png",
       alt: "Artist performing",
     },
     venues: {
       title: "WHERE STAGES FIND TALENT",
       subtitle: "Find the perfect performers for your venue",
-      image: "src/assets/hero-venue.png",
+      image: "/src/assets/hero-venue.png",
       alt: "Venue stage",
     },
   };
@@ -172,7 +172,7 @@ const Home = () => {
                 toggleHero();
               }}
               className="cursor-pointer"
-              src="src/assets/play-arrow.svg"
+              src="/src/assets/play-arrow.svg"
               alt=""
             />
             {isLoggedIn ? (
@@ -194,7 +194,7 @@ const Home = () => {
               </Button>
             )}
             <img
-              src="src/assets/play-arrow.svg"
+              src="/src/assets/play-arrow.svg"
               alt=""
               className="-scale-x-100 cursor-pointer"
               onClick={() => {

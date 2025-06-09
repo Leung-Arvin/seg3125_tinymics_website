@@ -25,7 +25,7 @@ export default function Discover() {
   const [venues, setVenues] = useState<Venue[]>([]);
   
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("venues") || '{}');
+    const data = JSON.parse(localStorage.getItem("initial-events") || '{}');
     setVenues(data)
   }, [])
 

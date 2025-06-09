@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import type { VenueData, EventData } from "@/lib/storage";
 import VenueCard from "@/components/ui/venueCard";
+import Navbar from "@/components/ui/navbar";
 
 export default function VenueProfilePage() {
   const navigate = useNavigate();
@@ -14,8 +15,21 @@ export default function VenueProfilePage() {
     navigate("/event-form");
   };
 
+
+
+  const handleGoToHomepage = () => {
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("activeVenueId");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    navigate("/");
+  };
+
   useEffect(() => {
-    const activeId = localStorage.getItem("activeVenueId");
+    const activeId = JSON.parse(localStorage.getItem("currentUser") || "{}").venues?.[0]?.id;
     const venues = getVenues();
     const found = venues.find((v) => v.id === activeId);
     if (found) {
@@ -34,7 +48,10 @@ export default function VenueProfilePage() {
   if (!venue) return <div className="text-white p-8">Loading...</div>;
 
   return (
+    <div className="w-full">
+      <Navbar variant="form"/>
     <div className="bg-[#1f1f1f] min-h-screen p-6 sm:p-12 flex flex-col items-center">
+      
       <div className="w-full h-40 sm:h-60 bg-cover bg-center rounded-t-xl" />
 
       <div className="bg-[#2a2a2a] rounded-xl w-full max-w-5xl p-6 sm:p-8 -mt-8 flex flex-col sm:flex-row gap-6">
@@ -42,8 +59,21 @@ export default function VenueProfilePage() {
           <h3>{venue.name}</h3>
           <p className="text-sm">{venue.email}</p>
           <p className="text-sm">{venue.address}</p>
-          <Button className="mt-4 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200">
-            Edit Profile
+
+          {localStorage.getItem("isLoggedIn") && (
+            <Button
+              className="mt-2 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200"
+              onClick={handleGoToHomepage}
+            >
+              Go to Homepage
+            </Button>
+          )}
+
+          <Button
+            className="mt-4 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200"
+            onClick={handleLogout}
+          >
+            Logout
           </Button>
         </div>
         <div className="flex-1 bg-[#1f1f1f] p-4 rounded-lg">
@@ -77,7 +107,7 @@ export default function VenueProfilePage() {
                   eventName={event.eventName}
                   location={venue.address}
                   genre={event.genre}
-                  payRange={ "$" + event.payMin + " - $" + event.payMax}
+                  payRange={"$" + event.payMin + " - $" + event.payMax}
                   date={event.date?.toDateString() && ""}
                   time={event.time}
                   dateObj={event.date || new Date()}
@@ -98,6 +128,9 @@ export default function VenueProfilePage() {
           )}
         </div>
       </div>
+
+    
+    </div>
     </div>
   );
 }

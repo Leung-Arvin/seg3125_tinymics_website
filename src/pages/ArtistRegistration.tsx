@@ -2,8 +2,10 @@ import { useState } from "react";
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import { saveArtist } from "@/lib/storage";
+import { useNavigate } from "react-router-dom";
 
 export default function ArtistRegistration() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     artistName: "",
@@ -26,9 +28,19 @@ export default function ArtistRegistration() {
     const newArtist = saveArtist({
       email: formData.email,
       name: formData.artistName,
+      password: formData.password,
+      role: "artist"
     });
-
-    console.log("Saved artist:", newArtist);
+    
+    if(newArtist) {
+      localStorage.setItem("currentUser", JSON.stringify({
+        email: formData.email,
+        name: formData.artistName,
+        password: formData.password,
+        role: "artist"
+      }))
+      navigate("/")
+    }
   };
 
   return (

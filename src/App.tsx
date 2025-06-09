@@ -12,6 +12,8 @@ import ArtistApplicationForm from "./pages/ArtistApplicationForm";
 import VenueDetail from "./pages/VenueDetail";
 import ArtistBookingConfirmation from "./pages/ArtistBookingConfirmation";
 import ArtistApplicationDialog from "./pages/ArtistApplicationDialog";
+import Login from "./pages/Login";
+import About from "./pages/About";
 
 const App = () => {
   return (
@@ -19,20 +21,47 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/event-form" element={<EventForm />} />
       <Route path="/create-account" element={<CreateAccount />} />
-      <Route path="/register/venue" element={<VenueRegistration/>}/>
+      <Route path="/register/venue" element={<VenueRegistration />} />
       <Route
         path="/register/venue-continued"
         element={<VenueRegistration2 />}
       />
-      <Route path="/artist-application-form" element={<ArtistApplicationForm/>}/>
+      <Route
+        path="/artist-application-form"
+        element={<ArtistApplicationForm />}
+      />
       <Route path="/register/artist" element={<ArtistRegistration />} />
       <Route path="/venue/profile" element={<VenueProfile />} />
-      <Route path="/discover" element={<Discover/>}/>
-      <Route path="/venue-details" element={<VenueDetail/>}/>
-      <Route path="/artist-booking-confirmation" element={<ArtistBookingConfirmation/>}/>
-      <Route path="/artist-application-dialog" element={<ArtistApplicationDialog/>}/>
+      <Route path="/discover" element={<Discover />} />
+      <Route path="/venue-details" element={<VenueDetail />} />
+      <Route
+        path="/artist-booking-confirmation"
+        element={<ArtistBookingConfirmation />}
+      />
+      <Route
+        path="/artist-application-dialog"
+        element={<ArtistApplicationDialog />}
+      />
+      <Route path="/event-form" element={<EventForm />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/discover" element={<Discover />} />
+      <Route
+        path="/artist-application-form"
+        element={<ArtistApplicationForm />}
+      />
+      \
+      <Route path="/venue-details" element={<VenueDetail />} />
+      <Route
+        path="/artist-booking-confirmation"
+        element={<ArtistBookingConfirmation />}
+      />
+      <Route
+        path="/artist-application-dialog"
+        element={<ArtistApplicationDialog />}
+      />
     </Routes>
   );
-}
+};
 
 export default App;

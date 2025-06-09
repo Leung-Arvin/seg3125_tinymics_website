@@ -17,8 +17,14 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function ArtistApplicationDialog() {
-  const [loggedIn] = useState(false);
+
+  const [loggedIn] = useState(() => {
+    const currentUser = localStorage.getItem("currentUser");
+    const parsedUser = currentUser ? JSON.parse(currentUser) : {};
+    return parsedUser.role === "artist";
+  });
   const navigate = useNavigate();
+  
 
   return(
     <div className="h-screen">

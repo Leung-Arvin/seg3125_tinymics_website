@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormInput } from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/ui/navbar";
-import { getVenues, getArtists } from "@/lib/storage";
+import { getArtists, getUsers } from "@/lib/storage";
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
@@ -16,17 +16,17 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const venues = getVenues();
+    const users = getUsers();
     const artists = getArtists();
 
-    const venueMatch = venues.find(
+    const venueMatch = users.find(
       (v) =>
-        v.email === formData.email && (v as any).password === formData.password
+        v.email === formData.email && v.password === formData.password && v.role == "venueOwner"
     );
 
     const artistMatch = artists.find(
       (a) =>
-        a.email === formData.email && (a as any).password === formData.password
+        a.email === formData.email && a.password === formData.password
     );
 
     if (venueMatch) {
@@ -34,14 +34,12 @@ export default function Login() {
         "currentUser",
         JSON.stringify({ ...venueMatch, type: "venue" })
       );
-      alert("Venue login successful!");
       window.location.href = "/";
     } else if (artistMatch) {
       localStorage.setItem(
         "currentUser",
         JSON.stringify({ ...artistMatch, type: "artist" })
       );
-      alert("Artist login successful!");
       window.location.href = "/discover";
     } else {
       alert("Invalid email or password.");

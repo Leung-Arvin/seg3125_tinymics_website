@@ -44,8 +44,11 @@ export type VenueData = {
 type ArtistData = {
   id: string;
   name: string;
+  password: string;
   email: string;
+  role: string;
 };
+
 // artist
 export const saveArtist = (artistData: Omit<ArtistData, "id">) => {
   const artists = getArtists();

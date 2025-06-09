@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import type { VenueData, EventData } from "@/lib/storage";
 import VenueCard from "@/components/ui/venueCard";
+import Navbar from "@/components/ui/navbar";
 
 export default function VenueProfilePage() {
   const navigate = useNavigate();
@@ -14,10 +15,7 @@ export default function VenueProfilePage() {
     navigate("/event-form");
   };
 
-  const handleCreateAccount = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    navigate("/");
-  };
+
 
   const handleGoToHomepage = () => {
     navigate("/");
@@ -27,11 +25,11 @@ export default function VenueProfilePage() {
     localStorage.removeItem("activeVenueId");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("currentUser");
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {
-    const activeId = localStorage.getItem("activeVenueId");
+    const activeId = JSON.parse(localStorage.getItem("currentUser") || "{}").venues?.[0]?.id;
     const venues = getVenues();
     const found = venues.find((v) => v.id === activeId);
     if (found) {
@@ -50,7 +48,10 @@ export default function VenueProfilePage() {
   if (!venue) return <div className="text-white p-8">Loading...</div>;
 
   return (
+    <div className="w-full">
+      <Navbar variant="form"/>
     <div className="bg-[#1f1f1f] min-h-screen p-6 sm:p-12 flex flex-col items-center">
+      
       <div className="w-full h-40 sm:h-60 bg-cover bg-center rounded-t-xl" />
 
       <div className="bg-[#2a2a2a] rounded-xl w-full max-w-5xl p-6 sm:p-8 -mt-8 flex flex-col sm:flex-row gap-6">
@@ -128,12 +129,8 @@ export default function VenueProfilePage() {
         </div>
       </div>
 
-      <Button
-        className="mt-8 font-semibold py-2 px-4 rounded-md bg-green-500 hover:bg-green-600"
-        onClick={handleCreateAccount}
-      >
-        Create Account
-      </Button>
+    
+    </div>
     </div>
   );
 }

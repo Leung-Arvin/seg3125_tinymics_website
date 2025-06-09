@@ -107,7 +107,7 @@ const venueData = [
 ];
 
 const Home = () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = localStorage.getItem("currentUser") !== null;
   const userEmail = localStorage.getItem("userEmail");
 
   const navigate = useNavigate();
@@ -138,7 +138,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("venues", JSON.stringify(venueData));
+    localStorage.setItem("initial-events", JSON.stringify(venueData));
 
     intervalRef.current = window.setInterval(() => {
       setProgress((prev) => {

@@ -46,7 +46,6 @@ export default function VenueRegistration2() {
       alert("Missing initial registration info.");
       return;
     }
-
     const newVenue = {
       name: formData.businessName,
       email: ownerData.email,
@@ -55,12 +54,9 @@ export default function VenueRegistration2() {
       description: formData.description,
       address: formData.address,
     };
-
     const savedVenue = saveVenue(newVenue);
-
     localStorage.setItem("activeVenueId", savedVenue.id);
     localStorage.removeItem("venue-partial");
-
     window.location.href = "/venue/profile";
   };
 

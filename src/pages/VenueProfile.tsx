@@ -14,6 +14,22 @@ export default function VenueProfilePage() {
     navigate("/event-form");
   };
 
+  const handleCreateAccount = () => {
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
+  };
+
+  const handleGoToHomepage = () => {
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("activeVenueId");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
   useEffect(() => {
     const activeId = localStorage.getItem("activeVenueId");
     const venues = getVenues();
@@ -42,8 +58,21 @@ export default function VenueProfilePage() {
           <h3>{venue.name}</h3>
           <p className="text-sm">{venue.email}</p>
           <p className="text-sm">{venue.address}</p>
-          <Button className="mt-4 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200">
-            Edit Profile
+
+          {localStorage.getItem("isLoggedIn") && (
+            <Button
+              className="mt-2 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200"
+              onClick={handleGoToHomepage}
+            >
+              Go to Homepage
+            </Button>
+          )}
+
+          <Button
+            className="mt-4 bg-white font-semibold py-1 px-3 rounded-md hover:bg-gray-200"
+            onClick={handleLogout}
+          >
+            Logout
           </Button>
         </div>
         <div className="flex-1 bg-[#1f1f1f] p-4 rounded-lg">
@@ -77,7 +106,7 @@ export default function VenueProfilePage() {
                   eventName={event.eventName}
                   location={venue.address}
                   genre={event.genre}
-                  payRange={ "$" + event.payMin + " - $" + event.payMax}
+                  payRange={"$" + event.payMin + " - $" + event.payMax}
                   date={event.date?.toDateString() && ""}
                   time={event.time}
                   dateObj={event.date || new Date()}
@@ -98,6 +127,13 @@ export default function VenueProfilePage() {
           )}
         </div>
       </div>
+
+      <Button
+        className="mt-8 font-semibold py-2 px-4 rounded-md bg-green-500 hover:bg-green-600"
+        onClick={handleCreateAccount}
+      >
+        Create Account
+      </Button>
     </div>
   );
 }

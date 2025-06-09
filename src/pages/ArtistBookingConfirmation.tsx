@@ -9,7 +9,7 @@ export default function ArtistBookingConfirmation() {
     <Navbar variant="form"/>
     <div className="flex flex-col h-200 items-center justify-center overflow-hidden">
       <div className="flex flex-col justify-center gap-5 max-w-80">
-        <img src="src/assets/sent_mail_icon.png" width="200" className="mx-auto" />
+        <img src="assets/sent_mail_icon.png" width="200" className="mx-auto" />
         <h2 className="text-center">Venue <br/> Notified</h2>
         <p>Now we wait and see if the venue reaches out</p>
         <p>In the meantime...</p>

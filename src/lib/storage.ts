@@ -48,7 +48,7 @@ export const saveArtist = (artistData: Omit<ArtistData, "id">) => {
   return newArtist;
 };
 
-export const getArtists = (): EventData[] => {
+export const getArtists = (): ArtistData[] => {
   const data = localStorage.getItem("artists");
   return data ? JSON.parse(data) : [];
 };

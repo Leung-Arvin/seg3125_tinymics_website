@@ -66,7 +66,10 @@ export default function About() {
             Ready to bring your stage or sound to life?
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button variant="default" onClick={() => navigate("/register")}>
+            <Button
+              variant="default"
+              onClick={() => navigate("/create-account")}
+            >
               Create an Account
             </Button>
             <Button variant="outline" onClick={() => navigate("/")}>

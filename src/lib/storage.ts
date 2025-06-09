@@ -24,6 +24,15 @@ export type EventData = {
   sound_check_time?: string;
 };
 
+export type UserData = {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  venues: VenueData[];
+  role: "venueOwner" | "artist";
+};
+
 export type VenueData = {
   id: string;
   name: string;
@@ -98,4 +107,28 @@ export const getVenues = (): VenueData[] => {
 export const deleteVenue = (id: string) => {
   const venues = getVenues().filter((venue) => venue.id !== id);
   localStorage.setItem("venues", JSON.stringify(venues));
+};
+
+//user
+// Save user
+export const saveUser = (userData: Omit<UserData, "id">): UserData => {
+  const users = getUsers();
+  const newUser: UserData = {
+    ...userData,
+    id: `${userData.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}`,
+  };
+  localStorage.setItem("users", JSON.stringify([...users, newUser]));
+  return newUser;
+};
+
+// Get users
+export const getUsers = (): UserData[] => {
+  const data = localStorage.getItem("users");
+  return data ? JSON.parse(data) : [];
+};
+
+// Delete user
+export const deleteUser = (id: string) => {
+  const users = getUsers().filter((user) => user.id !== id);
+  localStorage.setItem("users", JSON.stringify(users));
 };

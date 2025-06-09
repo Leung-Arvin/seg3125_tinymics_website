@@ -4,7 +4,7 @@ import { FormSelect } from "@/components/form/FormSelect";
 import { FormInput } from "@/components/form/FormInput";
 import { FormTextArea } from "@/components/form/FormTextArea";
 import { FormCheckbox } from "@/components/form/FormCheckbox";
-import { getVenues, saveVenue } from "@/lib/storage";
+import { getVenues, saveUser, saveVenue } from "@/lib/storage";
 
 const Venues = ["Café", "Restaurant", "Bar/Lounge", "Other"];
 
@@ -55,6 +55,13 @@ export default function VenueRegistration2() {
       address: formData.address,
     };
     const savedVenue = saveVenue(newVenue);
+    const userWithVenue = saveUser({
+      email: ownerData.email,
+      name: ownerData.ownerName,
+      password: ownerData.password,
+      venues: [savedVenue],
+      role: "venueOwner",
+    });
     localStorage.setItem("activeVenueId", savedVenue.id);
     localStorage.removeItem("venue-partial");
     window.location.href = "/venue/profile";

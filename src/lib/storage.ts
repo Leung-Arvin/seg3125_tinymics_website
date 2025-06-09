@@ -1,5 +1,3 @@
-import type { row } from "@/components/form/List";
-
 export type EventData = {
   id: string;
   eventName?: string;
